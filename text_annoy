@@ -1,0 +1,24 @@
+#This send a specific number of text messages to a person.  Use this carefully, please.
+
+import smtplib, email.utils
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+
+fromaddr = 'emailaddress@gmail.com'
+passw = 'password'
+toaddr = 'number@vtext.com'
+
+def send_a_message(body):
+    msg = MIMEMultipart()
+    msg['To'] = email.utils.formataddr(('Eric', toaddr))
+    msg['Subject'] = "Subject"
+    msg.attach(MIMEText(body, 'plain'))
+    text = msg.as_string()
+    server = smtplib.SMTP('smtp.gmail.com', 587 )
+    server.starttls()
+    server.login(fromaddr, passw)
+    server.sendmail(fromaddr, [toaddr], text)
+    server.quit()
+
+for it in range (0,100,1):
+    send_a_message('I love you sooooooooooooooo much')
